@@ -1,20 +1,44 @@
-import java.time.*;
+import java.util.Scanner;
 
 public class Principal {
-    public static void main(String[] args) {
-        System.out.println("Hola mundo");
-        fechaHoraActual();
-    }
+	static Scanner t = new Scanner(System.in);
 
-    public static void fechaHoraActual() {
-		String reloj = "";
-		String dia = ((LocalDate.now().getDayOfMonth() < 10) ? "0" : "") + LocalDate.now().getDayOfMonth();
-		String mes = ((LocalDate.now().getMonthValue() < 10) ? "0" : "") + LocalDate.now().getMonthValue();
-		String anio = "" + LocalDate.now().getYear();
-		String horas = ((LocalTime.now().getHour() < 10) ? "0" : "") + LocalTime.now().getHour();
-		String minutos = ((LocalTime.now().getMinute() < 10) ? "0" : "") + LocalTime.now().getMinute();
-		String segundos = ((LocalTime.now().getSecond() < 10) ? "0" : "") + LocalTime.now().getSecond();
-		reloj = dia + "/" + mes + "/" + anio + " " + horas + ":" + minutos + ":" + segundos;
-        System.out.println(reloj);
+	public static void main(String[] args) {
+		int numUsers = 3;
+		Usuario[] users = createUsuarios(numUsers);
+		mostrarUsuarios(users);
+	}
+
+	public static Usuario[] createUsuarios(int num) {
+		Usuario[] usuarios = new Usuario[num];
+		for (int i = 0; i < usuarios.length; i++) {
+			System.out.println("\nUSUARIO " + (i + 1) + ":");
+			System.out.println("-------------");
+			String nombre = getString("Nombre: ");
+			String apellidos = getString("Apellidos: ");
+			String email = getString("Email: ");
+			usuarios[i] = new Usuario(nombre, apellidos, email);
+		}
+		return usuarios;
+	}
+
+	public static void mostrarUsuarios(Usuario[] users) {
+		System.out.println("\nMOSTRANDO USUARIOS:");
+		System.out.println("----------------------");
+		for (int i = 0; i < users.length; i++) {
+			System.out.print("USUARIO " + (i + 1) + ": ");
+			System.out.println(users[i]);
+		}
+	}
+
+	public static String getString(String enunciado) {
+		System.out.print(enunciado);
+		String text = "";
+		try {
+			text = t.nextLine();
+		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+		return text;
 	}
 }
